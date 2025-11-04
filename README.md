@@ -1,25 +1,16 @@
-# Go Microservice 🚀
+# Go Microservice with MySQL & GORM 🚀
 
-A **production-grade Go microservice boilerplate** using **Gin**, **Zap**, and **Docker**.
+Production-ready microservice using **Go**, **Gin**, **GORM**, **MySQL**, and **Docker**.
 
 ---
 
 ## ✨ Features
-- ⚙️ Configurable via `.env`
-- 🔁 Health check endpoint (`GET /health`)
-- 🧩 Modular, clean structure
-- 🧘 Graceful shutdown
-- 📜 Structured logging
-- 🐳 Docker support
-- 🛠️ Makefile shortcuts
-
----
-
-## 🧰 Tech Stack
-- Go 1.23+
-- Gin Web Framework
-- Uber Zap Logger
-- caarlos0/env (config loader)
+- CRUD APIs for Users
+- MySQL with GORM ORM
+- Graceful Shutdown
+- Docker + Docker Compose
+- Structured Logging
+- Configurable via `.env`
 
 ---
 

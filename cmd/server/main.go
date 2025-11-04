@@ -8,25 +8,26 @@ import (
 	"time"
 
 	"github.com/techdev568/go-microservice-template/internal/config"
+	"github.com/techdev568/go-microservice-template/internal/database"
 	"github.com/techdev568/go-microservice-template/internal/logger"
 	"github.com/techdev568/go-microservice-template/internal/server"
 )
 
 func main() {
-	// Initialize logger
 	log := logger.New()
-	defer func() {
-		_ = log.Sync()
-	}()
+	defer func() { _ = log.Sync() }()
 
-	// Load configuration
 	cfg, err := config.Load()
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
 
-	// Start server
-	srv := server.New(cfg, log)
+	db, err := database.Connect(cfg, log)
+	if err != nil {
+		log.Fatalf("failed to connect to database: %v", err)
+	}
+
+	srv := server.New(cfg, log, db)
 
 	go func() {
 		if err := srv.Start(); err != nil {
@@ -34,7 +35,6 @@ func main() {
 		}
 	}()
 
-	// Graceful shutdown
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 	<-stop

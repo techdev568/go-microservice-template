@@ -1,20 +1,10 @@
-# Binaries
-server
-*.exe
-*.out
-
-# Go cache
-/vendor
-/go/pkg
-/go/bin
-
-# Git and editor files
 .git
 .gitignore
-.idea
-.vscode
+vendor
+*.log
+*.env
 *.swp
 *.swo
-
-# Environment files
-.env
+*.out
+.idea
+.vscode

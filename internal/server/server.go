@@ -11,33 +11,30 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type Server struct {
 	cfg    *config.Config
 	log    *zap.SugaredLogger
+	db     *gorm.DB
 	engine *gin.Engine
 	http   *http.Server
 }
 
-func New(cfg *config.Config, log *zap.SugaredLogger) *Server {
+func New(cfg *config.Config, log *zap.SugaredLogger, db *gorm.DB) *Server {
 	router := gin.New()
 	router.Use(gin.Recovery())
 
-	// Register routes
 	api.RegisterHealthRoutes(router)
+	api.RegisterUserRoutes(router, db)
 
 	s := &http.Server{
 		Addr:    fmt.Sprintf(":%s", cfg.Port),
 		Handler: router,
 	}
 
-	return &Server{
-		cfg:    cfg,
-		log:    log,
-		engine: router,
-		http:   s,
-	}
+	return &Server{cfg, log, db, router, s}
 }
 
 func (s *Server) Start() error {

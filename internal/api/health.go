@@ -8,9 +8,6 @@ import (
 
 func RegisterHealthRoutes(r *gin.Engine) {
 	r.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status":  "ok",
-			"message": "service healthy",
-		})
+		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
 }

@@ -1,8 +1,6 @@
 package logger
 
-import (
-	"go.uber.org/zap"
-)
+import "go.uber.org/zap"
 
 func New() *zap.SugaredLogger {
 	logger, _ := zap.NewProduction()
